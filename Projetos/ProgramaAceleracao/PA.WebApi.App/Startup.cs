@@ -91,6 +91,7 @@ namespace PA.WebApi.App
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

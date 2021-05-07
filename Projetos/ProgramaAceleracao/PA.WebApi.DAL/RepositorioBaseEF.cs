@@ -33,6 +33,11 @@ namespace PA.WebApi.DAL
             return _context.Find<TEntity>(key);
         }
 
+        public TEntity Find(string key)
+        {
+            return _context.Find<TEntity>(key);
+        }
+
         public void Incluir(params TEntity[] obj)
         {
             _context.Set<TEntity>().AddRange(obj);

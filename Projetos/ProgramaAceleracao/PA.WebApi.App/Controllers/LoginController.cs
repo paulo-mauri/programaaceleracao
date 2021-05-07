@@ -37,6 +37,7 @@ namespace PA.WebApi.App.Controllers
                     var direitos = new[]
                     {
                         new Claim(JwtRegisteredClaimNames.Sub, model.Usuario),
+                        new Claim(ClaimTypes.Role, model.IsAdmin ? "Admin" : "User"),
                         new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                     };
 

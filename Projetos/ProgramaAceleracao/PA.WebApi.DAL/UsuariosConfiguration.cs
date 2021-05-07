@@ -16,6 +16,8 @@ namespace PA.WebApi.DAL
                 .HasColumnType("varchar(50)")
                 .IsRequired();
 
+            builder.HasKey(l => l.Usuario).HasName("PK_Usuario");
+
             builder
                 .Property(l => l.Password)
                 .HasColumnType("varchar(75)");
