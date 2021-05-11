@@ -12,11 +12,11 @@ namespace PA.WebApi.DAL
         public void Configure(EntityTypeBuilder<Usuarios> builder)
         {
             builder
-                .Property(l => l.Usuario)
+                .Property(l => l.UserName)
                 .HasColumnType("varchar(50)")
                 .IsRequired();
 
-            builder.HasKey(l => l.Usuario).HasName("PK_Usuario");
+            builder.HasKey(l => l.UserName).HasName("PK_Usuario");
 
             builder
                 .Property(l => l.Password)

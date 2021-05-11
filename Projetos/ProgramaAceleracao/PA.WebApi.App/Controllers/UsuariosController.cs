@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using PA.WebApi.App.ViewModel;
 using PA.WebApi.DAL;
 using PA.WebApi.DAL.Usuarios;
 using PA.WebAPI.Model;
@@ -29,7 +30,7 @@ namespace PA.WebApi.App.Controllers
         [HttpGet]
         [Authorize(Roles = "Admin")]
         [Route("/api/[controller]")]
-        public IActionResult Get(Usuario model)
+        public IActionResult Get(UsuariosViewModel model)
         {
             if(ModelState.IsValid)
             {
@@ -43,6 +44,19 @@ namespace PA.WebApi.App.Controllers
             return BadRequest();
         }
 
+        [HttpGet]
+        [Authorize(Roles = "Admin")]
+        [Route("/api/[controller]")]
+        public IActionResult GetAll()
+        {
+            var lista = _repo.All;
+            if (lista == null)
+            {
+                return NotFound();
+            }
+            return Ok(lista);
+        }
+
 
         [HttpPost]
         [Route("/api/[controller]/Novo")]
@@ -50,7 +64,7 @@ namespace PA.WebApi.App.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new Usuario { UserName = model.Usuario };
+                var user = new Usuario { UserName = model.UserName };
                 
                 // Cria usuario no banco do Identity
                 var result = await _userManager.CreateAsync(user, model.Password);
@@ -68,7 +82,8 @@ namespace PA.WebApi.App.Controllers
         [Route("/api/[controller]/Alterar")]
         public IActionResult Alterar(Usuarios usuario)
         {
-            //var model = _repo.Find(usuario.Usuario);
+            //comentado por causa do tracking
+            //var model = _repo.Find(usuario.UserName);
             if (usuario == null)
             {
                 return NotFound();
@@ -84,13 +99,13 @@ namespace PA.WebApi.App.Controllers
         [Route("/api/[controller]/Remover")]
         public async Task<IActionResult> Remover(Usuarios usuario)
         {
-            var model = _repo.Find(usuario.Usuario);
+            var model = _repo.Find(usuario.UserName);
             if (model == null)
             {
                 return NotFound();
             }
 
-            var user = new Usuario { UserName = model.Usuario };
+            var user = new Usuario { UserName = model.UserName };
 
             // Remove usuario no banco do Identity
             var result = await _userManager.DeleteAsync(user);
