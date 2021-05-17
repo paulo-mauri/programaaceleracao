@@ -13,13 +13,13 @@ namespace PA.WebApi.App.Controllers
 {
     [ApiController]
     [Authorize]
-    [ApiVersion("1.0")]
+    [ApiVersion("2.0")]
     [Route("api/v{version:apiVersion}/Usuarios")]
-    public class UsuariosController : ControllerBase
+    public class UsuariosV2Controller : ControllerBase
     {
         private readonly IRepository<Usuarios> _repo;
 
-        public UsuariosController(IRepository<Usuarios> repository)
+        public UsuariosV2Controller(IRepository<Usuarios> repository)
         {
             _repo = repository;
         }
@@ -29,14 +29,14 @@ namespace PA.WebApi.App.Controllers
         [Route("Get")]
         public IActionResult Get(UsuariosViewModel model)
         {
-            if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 var usuario = _repo.Find(model.UserName);
                 if (usuario == null)
                 {
                     return NotFound();
                 }
-                return Ok(usuario);
+                return Ok(usuario.Email);
             }
             return BadRequest();
         }
@@ -54,7 +54,7 @@ namespace PA.WebApi.App.Controllers
             return Ok(lista);
         }
 
-
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public IActionResult Novo(Usuarios model)
         {
@@ -66,6 +66,7 @@ namespace PA.WebApi.App.Controllers
             return BadRequest();
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPut]
         public IActionResult Alterar(Usuarios usuario)
         {
@@ -89,11 +90,8 @@ namespace PA.WebApi.App.Controllers
                 return NotFound();
             }
 
-            var user = new Usuario { UserName = model.UserName };
-
             _repo.Excluir(model);
             return Ok();
         }
-
     }
 }

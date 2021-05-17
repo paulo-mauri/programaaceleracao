@@ -8,17 +8,14 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using Microsoft.IdentityModel.Tokens;
-using PA.WebApi.App.Filtros;
 using PA.WebApi.DAL;
-using PA.WebApi.DAL.Usuarios;
 using PA.WebAPI.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace PA.WebApi.App
+namespace PA.WebApi.AuthProvider
 {
     public class Startup
     {
@@ -34,38 +31,11 @@ namespace PA.WebApi.App
         {
             services.AddControllers();
 
-            services.AddDbContext<DatabaseContext>(options =>
-            {
+            services.AddDbContext<DatabaseContext>(options => {
                 options.UseSqlServer(Configuration.GetConnectionString("ProgramaAceleracao"));
             });
 
-            services.AddMvc(options => {
-                options.Filters.Add(new ErrorResonseFilter());
-            }).AddXmlSerializerFormatters();
-
-
             services.AddTransient<IRepository<Usuarios>, RepositorioBaseEF<Usuarios>>();
-
-            services.AddAuthentication(options =>
-            {
-                options.DefaultAuthenticateScheme = "JwtBearer";
-                options.DefaultChallengeScheme = "JwtBearer";
-            }).AddJwtBearer("JwtBearer", options =>
-            {
-                options.TokenValidationParameters = new TokenValidationParameters
-                {
-                    ValidateIssuer = true,
-                    ValidateAudience = true,
-                    ValidateLifetime = true,
-                    ValidateIssuerSigningKey = true,
-                    IssuerSigningKey = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes("matrix-pa-webapi-authentication-valid")),
-                    ClockSkew = TimeSpan.FromMinutes(5),
-                    ValidIssuer = "Matrix.PA.WebApp",
-                    ValidAudience = "Postman",
-                };
-            });
-
-            services.AddApiVersioning();
 
         }
 
@@ -82,7 +52,6 @@ namespace PA.WebApi.App
 
             app.UseRouting();
 
-            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

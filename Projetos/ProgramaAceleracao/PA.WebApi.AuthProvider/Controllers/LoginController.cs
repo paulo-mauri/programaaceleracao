@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using PA.WebApi.App.ViewModel;
 using PA.WebApi.DAL;
-using PA.WebApi.DAL.Usuarios;
 using PA.WebAPI.Model;
 using System;
 using System.Collections.Generic;
@@ -18,26 +17,26 @@ namespace PA.WebApi.App.Controllers
     [Route("/api/[controller]")]
     public class LoginController : ControllerBase
     {
-        private readonly SignInManager<Usuario> _signInManager;
+         private readonly IRepository<Usuarios> _repo;
 
-        private readonly IRepository<Usuarios> _repo;
-
-        public LoginController(SignInManager<Usuario> signInManager, IRepository<Usuarios> repository)
+        public LoginController(IRepository<Usuarios> repository)
         {
-            _signInManager = signInManager;
             _repo = repository;
         }
 
         [HttpGet]
         [Route("/api/[controller]/Token")]
-        public async Task<IActionResult> Token(UsuariosViewModel model)
+        public IActionResult Token(UsuariosViewModel model)
         {
             if (ModelState.IsValid)
             {
-                var result = await _signInManager.PasswordSignInAsync(model.UserName, model.Password, true, true);
-                if (result.Succeeded)
+                var usuario = _repo.Find(model.UserName);
+
+                if (usuario == null) return NotFound();
+
+                if (model.Password == usuario.Password)
                 {
-                    var usuario = _repo.Find(model.UserName);
+                    //var usuario = _repo.Find(model.UserName);
                     // cria token (header + payload >> claims + signature)
 
                     var direitos = new[]
