@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using PA.WebApi.App.ViewModel;
 using PA.WebApi.DAL;
 using PA.WebApi.DAL.Usuarios;
+using PA.WebAPI.App;
 using PA.WebAPI.Model;
 using System;
 using System.Collections.Generic;
@@ -14,6 +15,7 @@ namespace PA.WebApi.App.Controllers
     [ApiController]
     [Authorize]
     [ApiVersion("2.0")]
+    [ApiExplorerSettings(GroupName = "v2")]
     [Route("api/v{version:apiVersion}/Usuarios")]
     public class UsuariosV2Controller : ControllerBase
     {
@@ -27,7 +29,26 @@ namespace PA.WebApi.App.Controllers
         [HttpGet]
         [Authorize(Roles = "Admin")]
         [Route("Get")]
+        [ProducesResponseType(statusCode: 200, type: typeof(Usuarios))]
+        [ProducesResponseType(statusCode: 500, type: typeof(ErrorResponse))]
+        [ProducesResponseType(statusCode: 404)]
         public IActionResult Get(UsuariosViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var usuario = _repo.Find(model.UserName);
+                if (usuario == null)
+                {
+                    return NotFound();
+                }
+                return Ok(usuario);
+            }
+            return BadRequest();
+        }
+
+        [HttpGet]
+        [Route("GetEmail")]
+        public IActionResult GetEmail(UsuariosViewModel model)
         {
             if (ModelState.IsValid)
             {
