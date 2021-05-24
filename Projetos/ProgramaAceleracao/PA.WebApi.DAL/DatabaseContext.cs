@@ -8,7 +8,8 @@ namespace PA.WebApi.DAL
 {
     public class DatabaseContext : DbContext
     {
-        public DbSet<Usuarios> Livros { get; set; }
+        public DbSet<Usuarios> Usuarios { get; set; }
+        public DbSet<UsuariosPermissao> UsuariosPermissao { get; set; }
 
         public DatabaseContext(DbContextOptions<DatabaseContext> options)
             : base(options)
@@ -20,7 +21,8 @@ namespace PA.WebApi.DAL
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            modelBuilder.ApplyConfiguration<Usuarios>(new UsuariosConfiguration());
+            modelBuilder.ApplyConfiguration(new UsuariosConfiguration());
+            modelBuilder.ApplyConfiguration(new UsuariosPermissaoConfiguration());
         }
     }
 

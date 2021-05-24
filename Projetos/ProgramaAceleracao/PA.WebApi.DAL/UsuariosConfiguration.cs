@@ -12,11 +12,17 @@ namespace PA.WebApi.DAL
         public void Configure(EntityTypeBuilder<Usuarios> builder)
         {
             builder
+                .ToTable("Usuarios");
+
+            builder
+                .Property<int>(l => l.Id);
+
+            builder.HasKey(l => l.Id).HasName("PK_Usuario");
+
+            builder
                 .Property(l => l.UserName)
                 .HasColumnType("varchar(50)")
                 .IsRequired();
-
-            builder.HasKey(l => l.UserName).HasName("PK_Usuario");
 
             builder
                 .Property(l => l.Password)
@@ -28,6 +34,14 @@ namespace PA.WebApi.DAL
 
             builder
                 .Property(l => l.IsAdmin)
+                .HasColumnType("bit");
+
+            builder
+                .Property(l => l.DataHoraUltimaAlteracaoSenha)
+                .HasColumnType("datetime");
+
+            builder
+                .Property(l => l.ExpiracaoSenhaAtivada)
                 .HasColumnType("bit");
         }
     }
