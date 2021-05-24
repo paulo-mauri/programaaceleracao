@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using PA.WebApi.App.ViewModel;
+using PA.WebApi.AuthProvider.Validacao;
 using PA.WebApi.DAL;
 using PA.WebAPI.Model;
 using System;
@@ -38,6 +39,8 @@ namespace PA.WebApi.App.Controllers
                 {
                     //var usuario = _repo.Find(model.UserName);
                     // cria token (header + payload >> claims + signature)
+                    if (!Validacao.ValidarExpiracaoSenha(usuario))
+                        return BadRequest("Senha Expirada");
 
                     var direitos = new[]
                     {
