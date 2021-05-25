@@ -32,11 +32,11 @@ namespace PA.WebApi.App.Controllers
         [ProducesResponseType(statusCode: 200, type: typeof(Usuarios))]
         [ProducesResponseType(statusCode: 500, type: typeof(ErrorResponse))]
         [ProducesResponseType(statusCode: 404)]
-        public IActionResult Get(UsuariosViewModel model)
+        public IActionResult Get(UsuariosViewModel user)
         {
             if (ModelState.IsValid)
             {
-                var usuario = _repo.Find(model.UserName);
+                var usuario = _repo.Find(x => x.UserName == user.UserName);
                 if (usuario == null)
                 {
                     return NotFound();
@@ -48,11 +48,11 @@ namespace PA.WebApi.App.Controllers
 
         [HttpGet]
         [Route("GetEmail")]
-        public IActionResult GetEmail(UsuariosViewModel model)
+        public IActionResult GetEmail(UsuariosViewModel user)
         {
             if (ModelState.IsValid)
             {
-                var usuario = _repo.Find(model.UserName);
+                var usuario = _repo.Find( x => x.UserName == user.UserName);
                 if (usuario == null)
                 {
                     return NotFound();
@@ -103,15 +103,15 @@ namespace PA.WebApi.App.Controllers
 
         [Authorize(Roles = "Admin")]
         [HttpDelete]
-        public IActionResult Remover(Usuarios usuario)
+        public IActionResult Remover(Usuarios user)
         {
-            var model = _repo.Find(usuario.UserName);
-            if (model == null)
+            var usuario = _repo.Find(x => x.UserName == user.UserName);
+            if (usuario == null)
             {
                 return NotFound();
             }
 
-            _repo.Excluir(model);
+            _repo.Excluir(usuario);
             return Ok();
         }
     }

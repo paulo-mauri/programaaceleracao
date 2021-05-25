@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 
 namespace PA.WebApi.DAL
@@ -33,9 +34,9 @@ namespace PA.WebApi.DAL
             return _context.Find<TEntity>(key);
         }
 
-        public TEntity Find(string key)
+        public TEntity Find(Func<TEntity,bool> predicate)
         {
-            return _context.Find<TEntity>(key);
+            return _context.Set<TEntity>().AsQueryable().Where(predicate).FirstOrDefault();
         }
 
         public void Incluir(params TEntity[] obj)

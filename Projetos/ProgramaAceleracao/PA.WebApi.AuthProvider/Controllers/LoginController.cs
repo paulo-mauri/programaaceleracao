@@ -25,22 +25,24 @@ namespace PA.WebApi.App.Controllers
             _repo = repository;
         }
 
-        [HttpGet]
+        [HttpPost]
         [Route("/api/[controller]/Token")]
         public IActionResult Token(UsuariosViewModel model)
         {
             if (ModelState.IsValid)
             {
-                var usuario = _repo.Find(model.UserName);
+                var usuario = _repo.Find(x => x.UserName == model.UserName);
 
                 if (usuario == null) return NotFound();
+
+                //Validação simples de senha
+                if (!Validacao.ValidarExpiracaoSenha(usuario))
+                    return BadRequest("Senha Expirada");
 
                 if (model.Password == usuario.Password)
                 {
                     //var usuario = _repo.Find(model.UserName);
                     // cria token (header + payload >> claims + signature)
-                    if (!Validacao.ValidarExpiracaoSenha(usuario))
-                        return BadRequest("Senha Expirada");
 
                     var direitos = new[]
                     {

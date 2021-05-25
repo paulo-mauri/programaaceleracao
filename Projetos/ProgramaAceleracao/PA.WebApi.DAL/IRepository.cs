@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Linq.Expressions;
 
 namespace PA.WebApi.DAL
 {
@@ -7,7 +8,7 @@ namespace PA.WebApi.DAL
     {
         IQueryable<TEntity> All { get; }
         TEntity Find(int key);
-        TEntity Find(string key);
+        TEntity Find(Func<TEntity,bool> func);
         void Incluir(params TEntity[] obj);
         void Alterar(params TEntity[] obj);
         void Excluir(params TEntity[] obj);

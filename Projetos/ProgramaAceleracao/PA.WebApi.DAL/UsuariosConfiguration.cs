@@ -23,6 +23,9 @@ namespace PA.WebApi.DAL
                 .Property(l => l.UserName)
                 .HasColumnType("varchar(50)")
                 .IsRequired();
+            
+            builder
+                .HasIndex(u => u.UserName).IsUnique();
 
             builder
                 .Property(l => l.Password)

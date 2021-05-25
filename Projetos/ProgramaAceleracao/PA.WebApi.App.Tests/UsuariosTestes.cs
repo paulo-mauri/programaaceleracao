@@ -1,47 +1,30 @@
 using System;
 using Xunit;
-using PA.WebApi.AuthProvider;
-using PA.WebAPI.Model;
-using PA.WebApi.AuthProvider.Validacao;
+using System.Net.Http;
+using System.Net;
+using PA.WebApi.App.ViewModel;
 
 namespace PA.WebApi.App.Tests
 {
     public class UsuariosTestes
     {
         [Theory]
-        [InlineData(true, "admin", "123",false)]
-        [InlineData(false, "paulo", "123",true)]
-        public void ValidarExpiracaoUsuarioComExpiracaoAtivada(bool valorEsperado, string usuario, string senha, bool expiraSenhaAtivado)
+        [InlineData(HttpStatusCode.OK, "admin", "123")]
+        [InlineData(HttpStatusCode.BadRequest, "paulo", "123")]
+        public void ValidarExpiracaoUsuarioComExpiracaoAtivada(HttpStatusCode httpstatusCode, string usuario, string senha)
         {
+            //Arranje - cenário de entrada
+            UsuariosViewModel user = new UsuariosViewModel() { UserName = usuario, Password = senha };
 
-            // Arranje - cenário de entrada
-            // 
-            Usuarios user;
-            if (expiraSenhaAtivado)
-                user = new Usuarios()
-                {
-                    Id = 1,
-                    UserName = usuario,
-                    Password = senha,
-                    IsAdmin = true,
-                    ExpiracaoSenhaAtivada = expiraSenhaAtivado,
-                    DataHoraUltimaAlteracaoSenha = new DateTime(2021,1,20)
-                };
-            else
-                user = new Usuarios()
-                {
-                    Id = 1,
-                    UserName = usuario,
-                    Password = senha,
-                    IsAdmin = true,
-                    ExpiracaoSenhaAtivada = expiraSenhaAtivado,
-                    DataHoraUltimaAlteracaoSenha = null
-                };
+            //Act
+            HttpClient httpClient = new HttpClient();
+            httpClient.BaseAddress = new Uri("http://localhost:6000/api/Login/");
+            var resposta = httpClient.PostAsJsonAsync("Token", user).Result;
 
-            // Assert
-            var valorObtido = Validacao.ValidarExpiracaoSenha(user);
+            //Assert
+            var valorObtido = resposta.StatusCode;
 
-            Assert.Equal(valorEsperado, valorObtido);
+            Assert.Equal(httpstatusCode, valorObtido);
 
         }
     }
