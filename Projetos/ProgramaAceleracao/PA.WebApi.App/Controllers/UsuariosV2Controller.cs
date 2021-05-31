@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Mvc;
 using PA.WebApi.App.ViewModel;
 using PA.WebApi.DAL;
-using PA.WebApi.DAL.Usuarios;
 using PA.WebAPI.App;
 using PA.WebAPI.Model;
 using System;

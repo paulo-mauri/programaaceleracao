@@ -11,7 +11,6 @@ using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using PA.WebApi.App.Filtros;
 using PA.WebApi.DAL;
-using PA.WebApi.DAL.Usuarios;
 using PA.WebAPI.Model;
 using System;
 using System.Collections.Generic;

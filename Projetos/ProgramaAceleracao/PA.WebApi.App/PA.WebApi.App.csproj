@@ -19,7 +19,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\PA.WebApi.DAL.Usuarios\PA.WebApi.DAL.Usuarios.csproj" />
     <ProjectReference Include="..\PA.WebApi.DAL\PA.WebApi.DAL.csproj" />
   </ItemGroup>
 
