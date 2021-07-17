@@ -1,3 +1,7 @@
-<ap-photos [photos]="photos">
+<div class="text-center mt-3 mb-3">
+  <form>
+    <input class="rounded" type="search" placeholder="search..." autofocus (keyup)="onKeyUp($event.target)">
+  </form>
+</div>
 
-</ap-photos>
+<ap-photos [photos]="photos"> </ap-photos>
