@@ -1,6 +1,6 @@
 var botaoAdicionar = document.querySelector("#adicionar-paciente");
 botaoAdicionar.addEventListener("click", function(event) {
-    event.preventDefault();
+    event.preventDefault();  // a função event.preventDefault(); serve para prevenir o comportamento padrão de um evento.
     var form = document.querySelector("#form-adiciona");
 
     // Extraindo informações do paciente do form
