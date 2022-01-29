@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Negociações</title>
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/bootstrap-theme.css">
+    
+    <!-- carregando nosso polyfill -->
+    <script src="js/app/polyfill/es6.js"></script>
+    
+</head>
+<body class="container">
+    
+    <h1 class="text-center">Negociações</h1>
+    <div id="mensagemView"></div>
+    <form class="form" onsubmit="negociacaoController.adiciona(event)">
+        
+        <div class="form-group">
+            <label for="data">Data</label>
+            <input type="text" placeholder="dd/mm/aaaa" id="data" class="form-control" required autofocus/>        
+        </div>    
+        
+        <div class="form-group">
+            <label for="quantidade">Quantidade</label>
+            <input type="number" min="1" step="1" id="quantidade" class="form-control" value="1" required/>
+        </div>
+        
+        <div class="form-group">
+            <label for="valor">Valor</label>
+            <input id="valor" type="number" class="form-control"  min="0.01" step="0.01" value="0.0" required />
+        </div>
+        
+        <button class="btn btn-primary" type="submit">Incluir</button>
+    </form>
+    
+    <div class="text-center">
+        <button class="btn btn-primary text-center" type="button" onclick="negociacaoController.importaNegociacoes()">
+            Importar Negociações
+        </button>
+        <button class="btn btn-primary text-center" type="button" onclick="negociacaoController.apaga()">
+            Apagar
+        </button>
+    </div> 
+    <br>
+    <br>
+    
+    <div id="negociacoesView"></div>
+    
+    <script src="js/app/models/Negociacao.js"></script>
+    <script src="js/app/controllers/NegociacaoController.js"></script>
+    <script src="js/app/helpers/DateHelper.js"></script>
+    <script src="js/app/views/View.js"></script>    <!-- A classe View (classe pai) tem que ser referenciadas antes da classe que herdam dela -->
+    <script src="js/app/models/ListaNegociacao.js"></script>
+    <script src="js/app/views/NegociacoesView.js"></script>
+    <script src="js/app/models/Mensagem.js"></script>
+    <script src="js/app/views/MensagemView.js"></script>
+    <script src="js/app/services/ProxyFactory.js"></script>
+    <script src="js/app/helpers/Bind.js"></script>
+    <script src="js/app/services/NegociacaoService.js"></script>
+    <script src="js/app/services/HttpService.js"></script>
+
+
+
+
+
+    <script type="text/javascript">
+        var negociacaoController = new NegociacaoController();
+        
+    </script>
+    <script type="text/javascript">
+        
+        //let hoje = new Date();
+
+        //let n1 = new Negociacao(hoje, 5, 700);
+
+        // console.log(Object.isFrozen(n1));
+        // Object.freeze(n1);          // torna o objeto imutável
+        // console.log(Object.isFrozen(n1));
+
+        //n1._quantidade = 100000;
+
+        //console.log(n1.quantidade);
+        //console.log(n1.data);
+        //console.log(n1.valor);
+        //console.log(n1.volume);
+
+        // console.log(n1.data);
+
+        // imutavel
+        //var amanha = new Date();
+        //amanha.setDate(11);
+        //n1.data = amanha;
+            
+        //n1.data.setDate(11); // pode alterar o valor por causa do Object.freeze ser shallow 'raso', permite alteração superficial, se a propriedade é objeto e possuir propriedades pode-se altera-las.
+
+        //hoje.setDate(11);
+
+        //console.log(n1.data);
+
+        //  declaração com var - escopo de função ou global
+        //  declaração com let - é escopo de bloco
+
+        //for(let i = 1; i <=100; i++) {
+        //    let nome = 'Paulo';
+        //    console.log(i);
+        //}
+
+        // alert(i);  // com let da erro de undefined
+        // alert(nome); // com let da erro de undefined
+
+        //let lista = new Proxy(new ListaNegociacao(), {
+
+            // get: function(target, prop, receiver) {
+
+            //    console.log(`a propriedade "${prop}" foi interceptada`);
+            //    return Reflect.get(target, prop, receiver);
+
+            //} 
+
+            //set: function(target, prop, value, receiver) {
+
+            //    console.log(`valor anterior ${target[prop]}, novo valor: ${value}`);
+            //    return Reflect.set(target, prop, value, receiver);
+
+            //}
+
+           // get(target, prop, receiver) {
+            
+            //    if(['adiciona','esvazia'].includes(prop) && typeof (target[prop]) == typeof(Function)) {
+                    
+            //        return function() {
+
+            //            console.log(`interceptando ${prop}`);
+            //            Reflect.apply(target[prop], target, arguments);
+            //        }
+            //    }
+
+            //    return Reflect.get(target, prop, receiver);
+            //}
+        //});
+
+        //lista.adiciona(new Negociacao(new Date(), 1, 100));
+        //lista.esvazia();
+
+    </script>
+</body>
+</html>
