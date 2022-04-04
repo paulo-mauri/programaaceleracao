@@ -11,8 +11,8 @@ namespace Estudo.Usuario.Domain.Services
     {
         Usuarios CriarUsuario(Usuarios usuario);
         Usuarios EditarUsuario(Usuarios usuario);
-        void ExcluirUsuario(Usuarios usuario);
-        Usuarios BuscarPorId(Usuarios usuario);
+        void ExcluirUsuario(int id);
+        Usuarios BuscarPorId(int id);
         List<Usuarios> Buscar();
     }
 }

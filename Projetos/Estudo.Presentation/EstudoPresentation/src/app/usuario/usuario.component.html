@@ -1,0 +1,33 @@
+<div class="container table-responsive" >
+
+  <table class="table table-striped" >
+    <thead>
+      <tr>
+        <th scope="col">Codigo</th>
+        <th scope="col">Nome</th>
+        <th scope="col">Data Nascimento</th>
+        <th scope="col">Email</th>
+        <th scope="col">Ativo</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let usuario of usuarios">
+        <td> {{ usuario.id }}</td>
+        <td> {{ usuario.nome }}</td>
+        <td> {{ usuario.dataNascimento | date: 'dd/MM/yyyy' }}</td>
+        <td> {{ usuario.email }}</td>
+        <td> {{ usuario.ativo }}</td>
+        <td>
+          <button id="editar" class="btn btn-success btn-sm" [routerLink]="[ '/editar', usuario.id ]">Editar Usuario</button>
+        </td>
+        <td>
+          <button id="excluir" class="btn btn-danger btn-sm" [routerLink]="[ '/excluir', usuario.id, usuario.nome ]">Excluir Usuario</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <div>
+    <button [routerLink]="['/novo']" class="btn btn-primary" >Add Usuario</button>
+  </div>
+
+</div>

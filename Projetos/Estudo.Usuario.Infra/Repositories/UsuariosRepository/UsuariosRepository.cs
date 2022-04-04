@@ -26,16 +26,17 @@ namespace Estudo.Usuario.Infra.Repositories.UsuarioRepository
             return usuario;
         }
 
-        public void Delete(Usuarios usuario)
+        public void Delete(int id)
         {
-            _context.Usuarios.Remove(usuario);
+            var user = _context.Usuarios.FirstOrDefault(u => u.Id == id);
+            _context.Usuarios.Remove(user);
             _context.SaveChanges();
 
         }
 
-        public Usuarios Get(Usuarios usuario)
+        public Usuarios Get(int id)
         {
-            return _context.Usuarios.FirstOrDefault(u => u.Id == usuario.Id);
+            return _context.Usuarios.FirstOrDefault(u => u.Id == id);
         }
 
         public List<Usuarios> GetAll()

@@ -1,0 +1,14 @@
+<div class="container">
+  <div class="card-body bg-light">
+    <div class="container">
+      <div class="col-md-6">
+        <label class="col-form-label-lg">Deseja excluir o usuario: {{this.nome}} </label>
+      </div>
+      <div class="col-md-4">
+        <button (click)="deleteUsuario()" class="btn btn-success">Sim</button>
+        &nbsp;
+        <button [routerLink]="['/usuario']" class="btn btn-danger">Não</button>
+      </div>
+    </div>
+  </div>
+</div>

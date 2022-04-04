@@ -11,8 +11,8 @@ namespace Estudo.Usuario.Domain.Interfaces.Dados
     {
         public Usuarios Create(Usuarios usuario);
         public Usuarios Update(Usuarios usuario);
-        public void Delete(Usuarios usuario);
-        public Usuarios Get(Usuarios usuario);
+        public void Delete(int id);
+        public Usuarios Get(int id);
         public List<Usuarios> GetAll();
 
     }

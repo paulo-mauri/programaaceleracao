@@ -22,9 +22,9 @@ namespace Estudo.Usuario.Domain.Services
             return _usuarioRepository.GetAll();
         }
 
-        public Usuarios BuscarPorId(Usuarios usuario)
+        public Usuarios BuscarPorId(int id)
         {
-            return _usuarioRepository.Get(usuario);
+            return _usuarioRepository.Get(id);
         }
 
         public Usuarios CriarUsuario(Usuarios usuario)
@@ -37,9 +37,9 @@ namespace Estudo.Usuario.Domain.Services
             return _usuarioRepository.Update(usuario);
         }
 
-        public void ExcluirUsuario(Usuarios usuario)
+        public void ExcluirUsuario(int id)
         {
-            _usuarioRepository.Delete(usuario);
+            _usuarioRepository.Delete(id);
         }
     }
 }

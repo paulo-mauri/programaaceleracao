@@ -1,15 +1,27 @@
-import { UsuariosComponent } from './usuarios/usuarios.component';
+import { ExcluirUsuarioComponent } from './excluir-usuario/excluir-usuario.component';
+import { EditarUsuarioComponent } from './editar-usuario/editar-usuario.component';
+import { AdicionarUsuarioComponent } from './adicionar-usuario/adicionar-usuario.component';
+import { UsuarioComponent } from './usuario/usuario.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
-  // {
-  //   path: 'usuarios',
-  //   loadChildren: () => import('./usuarios/usuarios.component').then((p) => p.UsuariosComponent)
-  // }
   {
     path: 'usuario',
-    component: UsuariosComponent
+    component: UsuarioComponent
+  },
+  {
+    path: 'novo',
+    component: AdicionarUsuarioComponent
+  },
+  {
+    path: 'editar/:id',
+    component: EditarUsuarioComponent
+  }
+  ,
+  {
+    path: 'excluir/:id/:nome',
+    component: ExcluirUsuarioComponent
   }
 ];
 

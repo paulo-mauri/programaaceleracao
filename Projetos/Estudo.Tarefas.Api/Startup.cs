@@ -1,10 +1,9 @@
-using Estudo.Usuario.Domain.Interfaces.Dados;
-using Estudo.Usuario.Infra.Repositories.UsuarioRepository;
+using Estudo.Tarefas.Api.Data;
+using Estudo.Tarefas.Api.Repository;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -14,9 +13,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Estudo.Usuario.IoC;
+using Estudo.Tarefas.Api.UnitOfWork;
 
-namespace Estudo.Usuario.Api
+namespace Estudo.Tarefas.Api
 {
     public class Startup
     {
@@ -33,19 +32,13 @@ namespace Estudo.Usuario.Api
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Estudo.Usuario.Api", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Estudo.Tarefas.Api", Version = "v1" });
             });
 
-            services.AddCors(options =>
-            {
-                options.AddPolicy("AllowAnyOrigin",
-                    builder => builder
-                    .AllowAnyOrigin()
-                    .AllowAnyMethod()
-                    .AllowAnyHeader());
-            });
+            services.AddScoped<DBSession>();
+            services.AddTransient<ITarefaRepository, TarefasRepository>();
+            services.AddTransient<UnitOfWork.IUnitOfWork, UnitOfWork.UnitOfWork>();
 
-            services.ResolveDependencies();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -55,17 +48,12 @@ namespace Estudo.Usuario.Api
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Estudo.Usuario.Api v1"));
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Estudo.Tarefas.Api v1"));
             }
 
             app.UseHttpsRedirection();
 
             app.UseRouting();
-
-            app.UseCors(x => x
-                .AllowAnyOrigin()
-                .AllowAnyMethod()
-                .AllowAnyHeader());
 
             app.UseAuthorization();
 
@@ -73,7 +61,6 @@ namespace Estudo.Usuario.Api
             {
                 endpoints.MapControllers();
             });
-
         }
     }
 }

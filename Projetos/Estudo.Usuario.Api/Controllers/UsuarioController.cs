@@ -1,6 +1,7 @@
 ﻿using Estudo.Usuario.Domain.Entities;
 using Estudo.Usuario.Domain.Interfaces.Dados;
 using Estudo.Usuario.Domain.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -37,17 +38,17 @@ namespace Estudo.Usuario.Api.Controllers
         }
 
         [HttpDelete]
-        public IActionResult Delete(Usuarios usuario)
+        public IActionResult Delete(int id)
         {
-            _usuarioService.ExcluirUsuario(usuario);
+            _usuarioService.ExcluirUsuario(id);
 
-            return Ok("Usuário excluído");
+            return Ok(new { mensagem="Usuario Excluído"});
         }
 
         [HttpGet]
-        public IActionResult Get(Usuarios usuario)
+        public IActionResult Get(int id)
         {
-            return Ok(_usuarioService.BuscarPorId(usuario));
+            return Ok(_usuarioService.BuscarPorId(id));
         }
 
         [HttpGet]

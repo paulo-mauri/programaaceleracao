@@ -1,0 +1,65 @@
+<div class="container">
+  <div class="text-center mt-5">
+    <h2>Edição Usuário</h2>
+  </div>
+  <div class="row">
+    <div class="col-lg-7 mx-auto">
+      <div class="card mt-2 mx-auto p-4 bg-light">
+        <div class="card-body bg-light">
+          <div class="container">
+            <form [formGroup]="form" role="form">
+              <div class="controls">
+                <div class="row">
+                  <div class="col-md-10">
+                    <div class="form-group">
+                      <label for="nome">Nome</label>
+                      <input class="form-control" type="text" id="nome" formControlName="nome"
+                        placeholder="Digite o nome" required="required" data-error="Nome obirgatório.">
+                    </div>
+                  </div>
+                </div>
+                <br>
+                <div class="row">
+                  <div class="col-md-10">
+                    <div class="form-group">
+                      <label for="email">E-mail:</label>
+                      <input class="form-control" type="email" id="email" formControlName="email"
+                        placeholder="Digite o email">
+                    </div>
+                  </div>
+                </div>
+                <br>
+                <div class="row">
+                  <div class="col-md-4">
+                    <div class="form-group">
+                      <label for="data">Data Nasc.</label>
+                      <input class="form-control" type="date" id="data" formControlName="data"
+                        placeholder="Digite a data Nasc.">
+                    </div>
+                  </div>
+                </div>
+                <br>
+                <div class="row">
+                  <div class="col-md-10">
+                    <div class="form-group">
+                      <input type="checkbox" class="form-check-input" id="ativo" formControlName="ativo"
+                        placeholder="Ativo" name="ativo">
+                      <label class="form-check-label" for="ativo">Ativo</label>
+                    </div>
+                  </div>
+                </div>
+                <br>
+                <div class="row">
+                  <div class="d-grid gap-2 col-6 mx-auto">
+                    <input type="button" (click)="Salvar()" class="btn btn-success" size=""  value="Salvar">
+                    <input type="button" [routerLink]="['/usuario']" class="btn btn-secondary" value="Voltar">
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

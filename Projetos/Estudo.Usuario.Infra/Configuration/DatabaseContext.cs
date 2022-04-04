@@ -11,11 +11,15 @@ namespace Estudo.Usuario.Infra
     {
         public DbSet<Usuarios> Usuarios { get; set; }
 
+        public DbSet<Produtos> Produtos { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             //base.OnModelCreating(modelBuilder);
             //modelBuilder.Entity<Usuarios>();
+
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(Usuarios).Assembly);
+            modelBuilder.ApplyConfigurationsFromAssembly(typeof(Produtos).Assembly);
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
