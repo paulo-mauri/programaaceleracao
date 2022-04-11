@@ -1,0 +1,9 @@
+{
+    "compilerOptions": {
+        "outDir": "dist/js",       // diretório de saída do arquivo da compilação
+        "target": "ES6",           // versão do ECMASCRIPT de saida da compilação
+        "noEmitOnError": true      // não gera arquivo JS enquanto não passar na compilação
+    },
+    "include": ["app/**/*"]        // incluir os arquivos .ts do diretório
+
+}
