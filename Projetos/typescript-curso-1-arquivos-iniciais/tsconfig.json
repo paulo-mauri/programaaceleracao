@@ -1,12 +1,16 @@
 {
     "compilerOptions": {
-        "outDir": "dist/js",       
+        "outDir": "app/dist/js",       
         "target": "ES6",           
         "noEmitOnError": true,
         "allowJs": false,
         "noImplicitAny": true,
         "removeComments": true,
-        "strictNullChecks": true    
+        "strictNullChecks": true,
+        "experimentalDecorators": true,
+        "sourceMap": true    // setado como true habilita o debbug do typescript é importante que as pastas dist e src estejam dentro da pasta app
+                             // no momento da compilação cada arquivo .js na pasta dist será gerado um arquivo .map de mapeamento de arquivo.
+                             // no navegador chrome por exemplo na ferramenta de desenvolvedor, utilizar o comando CTRL+P e pesquisar o arquivo .ts para se debugar..
     },
     "include": ["app/**/*"]        
 
