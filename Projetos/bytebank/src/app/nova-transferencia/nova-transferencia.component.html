@@ -3,27 +3,22 @@
     <h2 class="formulario__titulo">Nova Transferência</h2>
     <div class="form-field">
       <label class="form-field__label" for="valor">Valor</label>
-      <input
-        class="form-field__input"
-        id="valor"
-        type="number"
-        [(ngModel)]="valor"
-        name="valor"
-      />
+      <input class="form-field__input" id="valor" type="text" [(ngModel)]="this.valor" name="valor" />
     </div>
     <div class="form-field">
       <label class="form-field__label" for="destino">Destino</label>
-      <input
-        class="form-field__input"
-        id="destino"
-        type="text"
-        [(ngModel)]="destino"
-        name="destino"
-      />
+      <input class="form-field__input" id="destino" type="text" [(ngModel)]="this.destino" name="destino" />
     </div>
-
     <div class="botao-wrapper">
-      <button class="botao">Transferir</button>
+      <button type="submit" class="botao">Transferir</button>
     </div>
   </form>
 </section>
+
+<!--
+
+[(variavel)]  ==> two way databind -- tanto do componente para o html - e html para o componente
+[variavel] ==> property bind = componente para o html
+(variavel) ==> html para componente
+
+-->
