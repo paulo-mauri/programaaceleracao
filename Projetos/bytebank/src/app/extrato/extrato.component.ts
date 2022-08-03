@@ -1,5 +1,5 @@
 import { TranseferenciaService } from './../services/transeferencia.service';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Transferencia } from '../models/transferencia.model';
 
 @Component({
@@ -10,6 +10,20 @@ import { Transferencia } from '../models/transferencia.model';
 export class ExtratoComponent implements OnInit {
 
   transferencias: any[];
+
+  counterValue = 0;
+
+  @Input()
+  get counter() {
+    return this.counterValue;
+  }
+
+  @Output() counterChange = new EventEmitter();
+
+  set counter(val) {
+    this.counterValue = val;
+    this.counterChange.emit(this.counterValue);
+  }
 
   constructor(private transferenciaService: TranseferenciaService) { }
 

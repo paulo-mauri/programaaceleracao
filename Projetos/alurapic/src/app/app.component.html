@@ -1,4 +1,24 @@
-<!-- <ap-photo url="https://img.r7.com/images/moya-leao-branco-albino-atracao-glen-garriff-conservation-lion-sanctuary-23032021161516582?dimensions=768x883" description="Leão" ></ap-photo>
-<ap-photo url="https://cdn.leroymerlin.com.br/products/quadro_leao_bronze_100x100cm_90658085_0001_600x600.jpg" description="Leão"></ap-photo> -->
-
+<ap-header></ap-header>
 <router-outlet></router-outlet>
+<ap-footer></ap-footer>
+
+<!--
+    O primeiro componente a ser carregado pela aplicação é app.component.html, certo? Sendo assim, precisaremos indicar nele que,
+de acordo com um determinado endereço, o componente correspondente deverá ser carregado, e que isso deve ser exibido neste mesmo arquivo.
+Para isso, usaremos a diretiva <router-outlet></router-outlet>
+
+    É dentro desta tag que deverá se exibir o componente. Salvaremos, retornaremos ao navegador, e nos depararemos com uma mensagem de erro
+indicando que <router-outlet> é um elemento desconhecido, e que não é um componente, solicitando a verificação de seu pertencimento a algum módulo.
+
+    O que acontece é que AppModule importa AppRoutingModule, bem como os arquivos de configuração de rotas. No entanto, não consegue importar as
+diretivas de rotas do módulo RouterModule. Para resolvermos isso, poderíamos simplesmente importá-lo em app.module.ts,
+porém optaremos por uma alternativa: em @NgModule de app.routing.module.ts, exportaremos RouterModule.
+
+    Assim, informamos que quem for importar AppRoutingModule também receberá RouterModule, o que fará com que não haja responsabilidade de importá-lo.
+Com esta alteração, nada será modificado em app.module.ts, voltaremos ao navegador e acessaremos localhost:4200/user/flavio mais uma vez, e as imagens serão carregadas
+com sucesso. E se acessarmos localhost:4200/p/add, o outro componente também terá o carregamento bem sucedido.
+-->
+
+<!--
+  [] -> one way databinding - data bindings para atributos
+-->

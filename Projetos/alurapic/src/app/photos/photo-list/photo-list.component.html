@@ -1,0 +1,16 @@
+<!-- <h1 style="background: red" apDarkenOnHover brightness="20%">Photos</h1> -->
+<ap-search
+    (onTyping)="this.filter = $event"
+    [value]="this.filter">
+</ap-search>
+
+<ap-photos [photos]="this.photos | filterByDescription: this.filter"></ap-photos>
+
+<ap-load-button
+    (click)="load()"
+    [hasMore]="this.hasMore">
+</ap-load-button>
+
+
+<!-- () = da view template para o componente
+[] = puxa o dado do componente para a view -->

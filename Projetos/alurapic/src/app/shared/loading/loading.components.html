@@ -1,0 +1,2 @@
+<hr [ngClass]="{'stopped': (this.loading$ | async) == 'stopped',
+                'loading': (this.loading$ | async) == 'loading'}">

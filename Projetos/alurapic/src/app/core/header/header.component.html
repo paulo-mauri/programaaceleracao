@@ -1,0 +1,33 @@
+<header class="sticky-top">
+    <nav class="navbar navbar-light bg-white">
+        <a class="navbar-brand">
+            <i tabindex="0" (keyup.space)="menu.toggle()" class="fa fa-bars ml-2 mr-2" (click)="menu.toggle()"></i>
+            ALURAPIC
+        </a>
+        <!--
+            Com o Async pipe conseguimos capturar a emissão do Observable
+                diretamente do nosso template.
+        -->
+        <ap-menu #menu>
+            <ul class="list-unstyled">
+                <li>
+                    <a showIfLogged [routerLink]="['p','add']">Upload</a>
+                </li>
+            </ul>
+        </ap-menu>
+        <div *ngIf="(user$ | async) as user; else login">
+            <i class="fa fa-user-circle mr-2">&nbsp;</i>
+            <a class="ml-2 mr-2">{{ this.user.name }}</a>
+            <a (click)="logout()">(Logout)</a>
+        </div>
+        <ng-template #login>
+            <span class="navbar-text">
+                <a [routerLink]="['']">Please, login!</a>
+            </span>
+        </ng-template>
+    </nav>
+    <div class="fixed-top">
+        <ap-loading></ap-loading>
+        <ap-alert></ap-alert>
+    </div>
+</header>
