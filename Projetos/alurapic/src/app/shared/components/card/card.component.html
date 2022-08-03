@@ -1,6 +1,21 @@
 <div class="card border-light text-center">
-  <h4 class="card-header" *ngIf="title">{{ title }}</h4>
-  <div class="card-block text-justify">
-    <ng-content></ng-content>
-  </div>
+    <h4 class="car-header" *ngIf="this.title">{{this.title}}</h4>
+    <div class="card-block text-justify">
+        <ng-content></ng-content>   <!-- Aqui que deve entrar o seu conteúdo que for colocado dentro do componente <ap-card></ap-card> -->
+    </div>
 </div>
+
+<!-- Ao salvarmos e voltarmos ao navegador, teremos uma surpresa: nada é exibido.
+    Podemos adicionar title="Flavio" em <ap-card>, e o texto será exibido em todos os cards, porém não seu conteúdo.
+    Isto porque em nenhum momento indicamos que no componente criado em card.component.html deve estar o conteúdo que for colocado em <ap-card>.
+    Para isso, utilizamos a diretiva ng-content:
+
+    <div class="card-block text-justify">
+        <ng-content></ng-content>
+    </div>
+
+    Isso resolverá nosso problema e, se quisermos, podemos voltar à listagem em photos.component.html e incluir title="photo.description"
+    com Data binding (caso contrário a string é que aparecerá): <ap-card [title]="photo.description">. Salvaremos as alterações, e
+    teremos as imagens sendo exibidas com sucesso, cada qual com o título correspondente. Podemos deletar o título,
+    que incluímos apenas para fins de teste.
+-->

@@ -1,1 +1,62 @@
-<p>photo-form works!</p>
+<!--
+
+ngSubmit: Dispara o evento original do form e não era possível realizar o .preventDefault, até na própria documentação ele fala:
+
+The ngSubmit event emits the original form submission event.
+
+submit: Também dispara o evento de submissão do form, mas é possível pará-lo através do .preventDefault.
+
+-->
+
+
+<div class="container">
+    <form [formGroup]="this.photoForm" class="row" (submit)="upload()">
+        <div class="col-md-6 text-center">
+            <div class="form-group" *ngIf="!this.preview else previewImage">
+                <button immediateClick type="button" (click)="this.fileInput.click()" class="btn btn-primary">
+                    <i class="fa fa-image fa-4x align-middle"></i>
+                </button>
+                <input #fileInput hidden formControlName="file" type="file" accept="image/*" (change)="onChange($event.target)">
+                <ap-vmessage
+                    text="Please, select a photo"
+                    *ngIf="this.photoForm.get('file')?.errors?.['required']">
+                </ap-vmessage>
+            </div>
+            <ng-template #previewImage>
+                <div class="text-center">
+                    <ap-photo [url]="this.preview" [title]="'Preview'"></ap-photo>
+                </div>
+            </ng-template>
+        </div>
+
+        <div class="col-md-6">
+            <div class="form-group">
+                <textarea formControlName="description" class="form-control form-control-sm" placeholder="photo description"></textarea>
+                <ap-vmessage
+                        text="Max length is 300"
+                        *ngIf="this.photoForm.get('description')?.errors?.['maxlength']">
+                    </ap-vmessage>
+            </div>
+
+            <div class="form-group">
+                <label class="text-muted">
+                    Allow comments
+                    <input formControlName="allowComments" type="checkbox">
+                </label>
+            </div>
+            <div *ngIf="!this.percentDone; else uploadImage">
+
+                <button [disabled]="this.photoForm.invalid" type="submit" class="btn btn-primary btn-block">
+                    Upload
+                </button>
+
+                <a [routerLink]="['']" class="btn btn-secondary btn-block">Cancel</a>
+            </div>
+            <ng-template #uploadImage> <!-- Não pode utilizar uma variavel de template que existe no componente ou nome de metodo -->
+                <div class="text-center display-4">
+                    <span> uploading {{ this.percentDone }}%</span>
+                </div>
+            </ng-template>
+        </div>
+    </form>
+</div>
