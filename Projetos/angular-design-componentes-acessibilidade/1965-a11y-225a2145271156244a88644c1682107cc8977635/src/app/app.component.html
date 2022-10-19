@@ -1,0 +1,24 @@
+<main>
+  <h1>Form</h1>
+  <!--
+    [(value)] é uma propriedade two way data binding
+      ---  tem um input com o nome de value
+        @Input() value: string = null;
+
+      ---  possui propriedade do tipo output com o sufixo Change
+        @Output() valueChange = new EventEmitter<string>();
+
+  -->
+  <!--
+    (ngSubmit) se tem algum erro ou alguma exceção no metodo submit() a pagina não vai receber o refresh
+  -->
+
+  <form [formGroup]="form" (ngSubmit)="submit()">
+    <app-yes-no-button-group
+      [appDisableControl]="true"
+      [formControlName]="'yesNoAnswer'"
+      [label]="'Are you good enough in Angular?'">
+    </app-yes-no-button-group>
+    <button>Submit</button>
+  </form>
+</main>
