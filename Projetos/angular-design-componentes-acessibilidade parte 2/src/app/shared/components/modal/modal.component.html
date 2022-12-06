@@ -1,0 +1,23 @@
+<div class="modal-overlay"
+  (click)="modalRef.close()"
+  (keydown.esc)="modalRef.close()">
+  <div
+    appFocusTrap
+    appFocusBack
+    class="modal-content"
+    role="dialog"
+    aria-modal="true"
+    [attr.aria-label]="config.title"
+    (click)="$event.stopPropagation()">
+    <h1 class="modal-title"> {{ config.title }}</h1>
+    <!-- conteudo do modal, template que eu quero exibir-->
+    <ng-container *ngTemplateOutlet="config.templateRef"></ng-container>
+  </div>
+</div>
+
+<!-- usar a animation em qualquer outro elemento-->
+<!--
+  <div [@fade]="active" *ngIf="true">
+
+  </div>
+-->
