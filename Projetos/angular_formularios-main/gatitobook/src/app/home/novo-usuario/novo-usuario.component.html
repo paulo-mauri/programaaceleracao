@@ -1,0 +1,47 @@
+<h4 class="text-center">Registre-se e mostre seu pet ao mundo!</h4>
+<form class="form mt-4" [formGroup]="this.novoUsuarioForm" (submit)="cadastrar()">
+  <div class="form-group">
+    <input type="text"  placeholder="e-mail" class="form-control" [formControlName]="'email'">
+    <app-mensagem
+      *ngIf="novoUsuarioForm.get('email')?.errors?.['required'] && novoUsuarioForm.get('email')?.touched"
+      [mensagem]="'Email obrigatório.'">
+    </app-mensagem>
+    <app-mensagem
+      *ngIf="novoUsuarioForm.get('email')?.errors?.['email'] && novoUsuarioForm.get('email')?.touched"
+      [mensagem]="'Email no formato inválido.'">
+    </app-mensagem>
+  </div>
+  <div class="form-group">
+    <input type="text" placeholder="Nome completo" class="form-control" [formControlName]="'fullName'">
+    <app-mensagem
+      *ngIf="novoUsuarioForm.get('fullName')?.errors && novoUsuarioForm.get('fullName')?.touched"
+      [mensagem]="'Nome no formato inválido.'">
+    </app-mensagem>
+  </div>
+  <div class="form-group">
+    <input type="text" placeholder="Usuário" class="form-control" [formControlName]="'userName'">
+    <!-- Pegar o objeto minusculo do validador customizado-->
+    <app-mensagem
+      *ngIf="novoUsuarioForm.get('userName')?.errors?.['minusculo'] && novoUsuarioForm.get('userName')?.touched"
+      [mensagem]="'Usuario deve ser em caracteres minúculos'">
+    </app-mensagem>
+    <!-- usuarioExistente == propriedade do objeto retornar do validador assincrono usuario-existe.service.ts -->
+    <app-mensagem
+      *ngIf="novoUsuarioForm.get('userName')?.errors?.['usuarioExistente'] && novoUsuarioForm.get('userName')?.touched"
+      [mensagem]="'Usuario já existe.'">
+    </app-mensagem>
+  </div>
+  <div class="form-group">
+    <input type="password" placeholder="Senha" class="form-control" [formControlName]="'password'">
+  </div>
+  <app-mensagem
+    *ngIf="novoUsuarioForm?.errors?.['senhaIgualUsuario']"
+    [mensagem]="'Senha deve ser diferente do usuário'">
+  </app-mensagem>
+
+  <div>
+    <button type="submit" class="btn btn-primary btn-block">Cadastro</button>
+  </div>
+</form>
+
+<p>Já é um usuario? <a [routerLink]="['']">Faça Login!</a></p> <!-- O ANGULAR ENTENDE QUE É UMA SUB-ROTA DO MÓDULO-->

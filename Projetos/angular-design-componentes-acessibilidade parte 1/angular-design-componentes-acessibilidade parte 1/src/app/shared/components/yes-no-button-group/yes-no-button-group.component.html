@@ -1,0 +1,86 @@
+<!--
+<div
+  appKm
+  role="radiogroup"
+  [attr.aria-labelledby]="id"
+  class="button-group">
+  <label [attr.id]="id" class="label">{{ label }}</label>
+  <button
+    appKmItem
+    (focused)="activate(options.YES)"
+    role="radio"
+    [attr.disabled]="disabled ? disabled : null"
+    [attr.aria-checked]="value === options.YES"
+    [attr.tabindex]="value === options.YES || value === null ? 0 : -1"
+    type="button"
+    class="button button-yes"
+    [class.button-pressed]="value === options.YES"
+    (click)="activate(options.YES)">
+    Yes
+  </button>
+  <button
+    appKmItem
+    (focused)="activate(options.NO)"
+    role="radio"
+    [attr.disabled]="disabled ? disabled : null"
+    [attr.aria-checked]="value === options.NO"
+    [attr.tabindex]="value === options.NO ? 0 : -1"
+    type="button"
+    class="button button-no"
+    [class.button-pressed]="value === options.NO"
+    (click)="activate(options.NO)">
+      No
+  </button>
+</div>
+-->
+
+<!--
+  [02:35] O que vamos fazer então? O que vou fazer é lá nos botões do nosso componente, embaixo vou colocar o atributo attr disabled e esse cara é aquela lógica
+    que nós já conhecemos.
+
+  [03:00] Se o valor é disabled, é true, ele vai ganhar um atributo. Se é false ele vai ganhar um atributo. Não é isso? Vamos ver se é isso.
+    Botei nesse botão, vou botar no outro. Não é assim. Tem que tomar muito cuidado, e esse acho que é um dos maiores pulos do gato do curso,
+    que eu quebrei muito a cabeça quando comecei a trabalhar com esses atributos.
+
+  [03:28] É o seguinte. Se esse valor é verdadeiro ou falso, o Angular vai adicionar a propriedade disabled igual a true ou disabled igual a false.
+    Mas para esse atributo funcionar corretamente, ele tem que estar presente ou ausente, não é o fato dele receber disabled igual a true,
+    disabled igual a false que vai funcionar.
+
+  [03:50] Se adicionarmos no DOM disabled igual a true, disabled igual a false, os dois para o navegador serão disabled.
+    Então, qual o lance? Toda vez que você quer trabalhar com atributo que aplicação dele é a presença ou não dele, tipo checked,
+    é a presença ou não dele, você vai ter que fazer a seguinte coisa.
+
+  [04:15] Vamos testar se disabled é true, vou retornar disabled. Se ele é falso, vou retornar null.
+    O null quando é retornado em um binding de atributo, ignora e não cria o atributo para você. Ficou claro? Se aqui fosse false,
+    por exemplo, ele criaria o atributo para nós. Não quero.
+
+  [04:42] Coloca isso na sua mente. Numa atribuição, em um binding para uma propriedade, um atributo de um elemento,
+    se você retorna null significa que você não quer colocar essa propriedade no elemento.
+    É isso que preciso fazer para isso funcionar direito.
+
+ -->
+
+<!-- Utilizando inputs do tipo radio -->
+<div class="button-group" role="radiogroup" [attr.aria-label]="label">
+  <label>{{ label }}</label>
+  <div class="radio">
+    <input [attr.id]="id + '-yes'"
+      type="radio"
+      [attr.name]="id"
+      [attr.checked]="value === options.YES"
+      (changes)="activate(options.YES)"/>
+      <label [attr.for]="id + '-yes'" class="button button-yes">
+        Yes
+      </label>
+  </div>
+  <div class="radio">
+    <input [attr.id]="id + '-no'"
+      type="radio"
+      [attr.name]="id"
+      [attr.checked]="value === options.NO"
+      (changes)="activate(options.NO)"/>
+      <label [attr.for]="id + '-no'" class="button button-no">
+        No
+      </label>
+  </div>
+</div>
