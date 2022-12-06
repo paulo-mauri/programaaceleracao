@@ -1,0 +1,1 @@
+{"ast":null,"code":"export function minusculoValidator(control) {\n  const valor = control.value; // se o valor não for o seu valor em minusculo\n\n  if (valor !== valor.toLowerCase()) {\n    return {\n      minusculo: true\n    };\n  } else {\n    return null;\n  }\n}","map":null,"metadata":{},"sourceType":"module"}
