@@ -1,4 +1,4 @@
-export interface Acoes extends Array<Acao> {}
+export interface Acoes extends Array<Acao> { }
 
 export interface Acao {
   id: number;
