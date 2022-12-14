@@ -12,7 +12,7 @@ import { CardAcoesComponent } from './card-acoes/card-acoes.component';
   imports: [
     CommonModule,
     AcoesRoutingModule,
-    SharedModule
+    SharedModule,
   ]
 })
 export class AcoesModule { }
